@@ -1,0 +1,37 @@
+{
+  "extends": [
+    "config:base",
+    ":semanticCommitTypeAll(build)",
+    ":separatePatchReleases"
+  ],
+  "ignorePresets": [
+    ":combinePatchMinorReleases",
+    ":prHourlyLimit2",
+    ":semanticPrefixFixDepsChoreOthers"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "packageRules": [
+    {
+      "datasources": [
+        "github-tags"
+      ],
+      "addLabels": [
+        "github-actions"
+      ]
+    },
+    {
+      "datasources": [
+        "go"
+      ],
+      "addLabels": [
+        "go"
+      ]
+    }
+  ],
+  "postUpdateOptions": [
+    "gomodTidy",
+    "gomodNoMassage"
+  ]
+}
