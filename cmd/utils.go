@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"net"
+	"os"
 	"strings"
 )
 
@@ -31,8 +32,10 @@ func isPrivateIP(ip []string) error {
 			return fmt.Errorf("IP address: %s is not valid", s)
 		}
 
-		if !net.IP.IsPrivate(err) {
-			return fmt.Errorf("IP address: %s is not a valid private address (RFC 1918/4193)", s)
+		if os.Getenv("ALLOW_GLOBAL_ROUTABLE_IP") != "1" {
+			if !net.IP.IsPrivate(err) {
+				return fmt.Errorf("IP address: %s is not a valid private address (RFC 1918/4193)", s)
+			}
 		}
 	}
 
